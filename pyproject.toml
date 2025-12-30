@@ -1,0 +1,12 @@
+[project]
+name = "etcd-fsm"
+version = "0.1.0"
+description = "Distributed FSM over etcd"
+readme = "README.md"
+authors = [{ name = "Rubikoid", email = "rubikoid@rubikoid.ru" }]
+requires-python = ">=3.13"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
