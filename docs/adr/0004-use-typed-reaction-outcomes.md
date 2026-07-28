@@ -1,0 +1,3 @@
+# Use typed reaction outcomes
+
+A Reaction returns a typed outcome: a new State Value requests an atomic transition, `Retry` requests another attempt with backoff while the current State Revision remains valid, and `None` leaves the state unchanged while retaining the Processing Claim. Only explicit `Retry` and a cooperatively cancelled invocation timeout enter the retry path. An unexpected exception marks the invocation failed instead of silently converting a programming error into an infinite retry loop. This makes transition and retry intent explicit without requiring Reactions to mutate runtime state directly.

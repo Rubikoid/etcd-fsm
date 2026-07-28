@@ -5,8 +5,34 @@ description = "Distributed FSM over etcd"
 readme = "README.md"
 authors = [{ name = "Rubikoid", email = "rubikoid@rubikoid.ru" }]
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "aetcd>=1.0.0",
+    "pydantic ~= 2.12",
+    "structlog >= 25.5.0, <25.6.0",
+]
+
+[dependency-groups]
+dev = ["pytest ~= 9.0.3"]
 
 [build-system]
 requires = ["uv_build>=0.9.18,<0.10.0"]
 build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "etcd_fsm"
+module-root = ""
+
+[tool.basedpyright]
+include = ["etcd_fsm", "tests"]
+pythonVersion = "3.13"
+typeCheckingMode = "strict"
+reportAny = false
+reportExplicitAny = false
+reportUnnecessaryIsInstance = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "RUF", "SIM", "UP"]
