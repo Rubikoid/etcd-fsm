@@ -19,6 +19,7 @@ from .processor import (
     compose_processors,
 )
 from .schema import CommandDefinition, FSMSchema
+from .version import __version__
 
 __all__ = [
     "Applied",
@@ -45,6 +46,7 @@ __all__ = [
     "Rejected",
     "Retry",
     "SchemaDefinitionError",
+    "__version__",
     "compose_processors",
     "validate_fsm_key",
 ]

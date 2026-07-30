@@ -321,7 +321,7 @@ class FakeEtcdBackend(EtcdBackend):
             return _compare_bytes(actual, operand, compare.operator)
         if not isinstance(operand, int):
             raise BackendError(f"compare operand for {compare.target} has incompatible type")
-        return _compare_ints(actual, operand, compare.operator)
+        return _compare_ints(actual, operand, compare.operator) # pyright: ignore[reportArgumentType]
 
     def _validate_transaction_unlocked(
         self,

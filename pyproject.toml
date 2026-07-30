@@ -1,26 +1,41 @@
 [project]
 name = "etcd-fsm"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Distributed FSM over etcd"
 readme = "README.md"
 authors = [{ name = "Rubikoid", email = "rubikoid@rubikoid.ru" }]
 requires-python = ">=3.13"
 dependencies = [
-    "aetcd>=1.0.0",
+    "aetcd ~= 1.0.0",
+    "cyclopts ~= 4.22.3",
     "pydantic ~= 2.12",
     "structlog >= 25.5.0, <25.6.0",
 ]
 
+[project.urls]
+Source = "https://github.com/Rubikoid/etcd-fsm"
+Issues = "https://github.com/Rubikoid/etcd-fsm/issues"
+Documentation = "https://github.com/Rubikoid/etcd-fsm/blob/master/docs/API.md"
+
+[project.scripts]
+etcd-fsm = "etcd_fsm.cli:main"
+
 [dependency-groups]
-dev = ["pytest ~= 9.0.3"]
+dev = [
+    "basedpyright>=1.39.9,<1.40",
+    "pytest ~= 9.0.3",
+    "ruff>=0.15.22,<0.16",
+]
 
 [build-system]
-requires = ["uv_build>=0.9.18,<0.10.0"]
-build-backend = "uv_build"
+requires = ["hatchling>=1.31,<2"]
+build-backend = "hatchling.build"
 
-[tool.uv.build-backend]
-module-name = "etcd_fsm"
-module-root = ""
+[tool.hatch.version]
+path = "etcd_fsm/version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["etcd_fsm"]
 
 [tool.basedpyright]
 include = ["etcd_fsm", "tests"]
@@ -29,6 +44,11 @@ typeCheckingMode = "strict"
 reportAny = false
 reportExplicitAny = false
 reportUnnecessaryIsInstance = false
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: requires a real etcd server and --run-integration",
+]
 
 [tool.ruff]
 line-length = 100

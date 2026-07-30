@@ -1,0 +1,29 @@
+services:
+  etcd:
+    image: gcr.io/etcd-development/etcd:v3.7.1
+    command:
+      - /usr/local/bin/etcd
+      - --name=etcd-fsm-test
+      - --data-dir=/etcd-data
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --advertise-client-urls=http://0.0.0.0:2379
+      - --listen-peer-urls=http://0.0.0.0:2380
+      - --initial-advertise-peer-urls=http://0.0.0.0:2380
+      - --initial-cluster=etcd-fsm-test=http://0.0.0.0:2380
+      - --initial-cluster-state=new
+      - --initial-cluster-token=etcd-fsm-test
+    ports:
+      - "127.0.0.1:12379:2379"
+    tmpfs:
+      - /etcd-data
+    healthcheck:
+      test:
+        - CMD
+        - /usr/local/bin/etcdctl
+        - --endpoints=http://127.0.0.1:2379
+        - endpoint
+        - health
+      interval: 2s
+      timeout: 3s
+      retries: 20
+      start_period: 2s
